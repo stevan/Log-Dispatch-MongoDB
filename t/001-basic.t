@@ -62,5 +62,6 @@ my $collection = $db->get_collection('my_logger');
     );
 }
 
+$db->drop(); # clean up
 
 done_testing;
