@@ -45,26 +45,26 @@ sub log_message {
 
 =head1 SYNOPSIS
 
-my $log = Log::Dispatch->new;
-$log->add(
-    Log::Dispatch::MongoDB->new(
-        name       => 'my_web_logger',
-        min_level  => 'debug',
-        collection => $mongo_db->get_collection('web_log')
-    )
-);
+  my $log = Log::Dispatch->new;
+  $log->add(
+      Log::Dispatch::MongoDB->new(
+          name       => 'my_web_logger',
+          min_level  => 'debug',
+          collection => $mongo_db->get_collection('web_log')
+      )
+  );
 
-$log->debug("Testing feature $x");
+  $log->debug("Testing feature $x");
 
-$log->log(
-    level   => 'info',
-    message => 'Started processing web page',
-    info    => {
-        referer     => $ENV{HTTP_REFERER},
-        user_agent  => $ENV{HTTP_USER_AGENT},
-        remote_addr => $ENV{REMOTE_ADDR},
-    }
-);
+  $log->log(
+      level   => 'info',
+      message => 'Started processing web page',
+      info    => {
+          referer     => $ENV{HTTP_REFERER},
+          user_agent  => $ENV{HTTP_USER_AGENT},
+          remote_addr => $ENV{REMOTE_ADDR},
+      }
+  );
 
 =head1 DESCRIPTION
 
@@ -72,15 +72,18 @@ This is a L<MongoDB> backend for L<Log::Dispatch>.
 
 L<MongoDB> is especially adept for logging because of it's asynchronous
 insert behavior, which means that your logging won't slow down your
-application.
+application. It is also nice in that you can store structured data
+as well as simple messages.
 
-L<http://blog.mongodb.org/post/172254834/mongodb-is-fantastic-for-logging>
+=method log
 
-Additionally we not only store the level and message, but we store any
-other information you choose to pass to C<log>. Note that this feature
+With the C<log> method, we not only store the level and message, but we
+store any other information you choose to passed in. Note that this feature
 does not work if you use the C<info>, C<warn>, C<debug> methods, etc.
 
+=head1 SEE ALSO
 
+L<http://blog.mongodb.org/post/172254834/mongodb-is-fantastic-for-logging>
 
 
 
